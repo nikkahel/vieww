@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Выбор времени</title>
+    <style>
+        body {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        #timepicker {
+            border: 2px solid #ccc;
+            background-color: white;
+            padding: 10px;
+            font-size: 2em;
+            border-radius: 10px;
+            outline: none;
+            text-align: center;
+        }
+
+        button {
+            display: block;
+            margin: 0 auto;
+            margin-top: 20px;
+            font-size: 1.5em;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<h1>Выберите время:</h1>
+<input type="time" id="timepicker" step="600">
+<button onclick="sendSelectedTime()">Отправить</button>
+
+<script>
+    function sendSelectedTime() {
+        const selectedTime = document.getElementById("timepicker").value;
+        // Отправляем выбранное время на сервер
+        fetch("/webapp_data", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ selectedTime }),
+        }).then(() => {
+            // Закрываем веб-приложение
+            window.close();
+        });
+    }
+</script>
+</body>
+</html>
